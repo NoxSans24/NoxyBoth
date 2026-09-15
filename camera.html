@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera — NoxBooth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/camera.css">
+</head>
+<body class="camera-body">
+    <div class="bg-glow"></div>
+
+    <header class="app-header">
+        <a href="index.html" class="icon-btn" aria-label="Back to Home">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <defs>
+                    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <path fill="url(#iconGrad)" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </a>
+        <div class="photo-counter" id="photoCounter">PHOTO 1 / 4</div>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- Permission Overlay -->
+    <div id="permissionState" class="permission-overlay">
+        <div class="permission-card glass-panel">
+            <div class="permission-icon-wrap">
+                <svg viewBox="0 0 24 24" width="48" height="48">
+                    <path fill="url(#iconGrad)" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM15 16H5V8h10v8z"/>
+                </svg>
+            </div>
+            <h2>Camera Access Required</h2>
+            <p>NoxBooth needs access to your camera to capture your wonderful moments. Please allow permission when prompted.</p>
+            <button id="allowCameraBtn" class="btn btn-primary btn-glow">Allow Camera</button>
+            <p id="permissionError" class="error-msg hidden"></p>
+        </div>
+    </div>
+
+    <main class="camera-container">
+        <div class="preview-wrapper">
+            <div class="camera-glow-border"></div>
+            <video id="cameraVideo" autoplay playsinline muted></video>
+            <canvas id="snapshotCanvas" class="hidden"></canvas>
+            
+            <!-- Countdown Overlay -->
+            <div id="countdownOverlay" class="countdown-overlay hidden">
+                <span id="countdownNumber">3</span>
+            </div>
+
+            <!-- Flash Overlay -->
+            <div id="flashOverlay" class="flash-overlay"></div>
+        </div>
+
+        <div class="progress-indicator">
+            <div class="progress-dot active" data-index="0"></div>
+            <div class="progress-line"></div>
+            <div class="progress-dot" data-index="1"></div>
+            <div class="progress-line"></div>
+            <div class="progress-dot" data-index="2"></div>
+            <div class="progress-line"></div>
+            <div class="progress-dot" data-index="3"></div>
+        </div>
+
+        <div class="camera-controls">
+            <button id="flashToggle" class="control-btn" aria-label="Toggle Flash">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="url(#iconGrad)" d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+            </button>
+
+            <button id="captureBtn" class="capture-btn" aria-label="Capture Photo">
+                <div class="capture-inner"></div>
+            </button>
+
+            <button id="flipCameraBtn" class="control-btn" aria-label="Flip Camera">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="url(#iconGrad)" d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mini Previews Strip -->
+        <div id="miniPreviews" class="mini-previews"></div>
+    </main>
+
+    <script src="js/camera.js"></script>
+    <script src="js/capture.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

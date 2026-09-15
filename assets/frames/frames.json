@@ -1,0 +1,47 @@
+[
+  {
+    "id": "frame-none",
+    "name": "No Frame",
+    "image": ""
+  },
+  {
+    "id": "frame-01",
+    "name": "Cyber Glow",
+    "image": "assets/frames/frame_pria_biru.png"
+  },
+  {
+    "id": "frame-02",
+    "name": "Neon Gradient",
+    "image": "assets/frames/frame_pria_hitam.png"
+  },
+  {
+    "id": "frame-03",
+    "name": "Minimalist White",
+    "image": "assets/frames/frame_wanita_pink.png"
+  },
+  {
+    "id": "frame-04",
+    "name": "Retro Wave",
+    "image": "assets/frames/frame_wanita_ungu.png"
+  },
+  {
+    "id": "frame-05",
+    "name": "Elegant Navy-Gold",
+    "image": "assets/frames/Elegant Navy-Gold Sci-Fi Photo Frame.png"
+  },
+  {
+    "id": "frame-06",
+    "name": "Futuristic Navy",
+    "image": "assets/frames/Futuristic Navy Portrait Frame.png"
+  },
+  {
+    "id": "frame-07",
+    "name": "Elegant Art Deco",
+    "image": "assets/frames/Elegant Art Deco Transparent Photo Frame.png"
+  },
+  {
+    "id": "frame-08",
+    "name": "Deco Navy Botanical",
+    "image": "assets/frames/Art Deco Navy Botanical Frame.png"
+  }
+]

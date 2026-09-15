@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor — NoxBooth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+<body class="editor-body">
+    <div class="bg-glow"></div>
+
+    <header class="app-header">
+        <a href="camera.html" class="icon-btn" aria-label="Back to Camera">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <defs>
+                    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <path fill="url(#iconGrad)" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </a>
+        <div class="brand-name">NoxBooth Editor</div>
+        <button id="finishEditBtn" class="btn btn-primary btn-sm">Create Photostrip</button>
+    </header>
+
+    <main class="editor-container">
+        <!-- Preview Area -->
+        <div class="editor-preview-section">
+            <div class="canvas-container-preview">
+                <canvas id="editorCanvas"></canvas>
+                <div id="frameOverlay" class="frame-overlay"></div>
+            </div>
+        </div>
+
+        <!-- Controls Sidebar -->
+        <div class="editor-sidebar glass-panel">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="filters">Filters</button>
+                <button class="tab-btn" data-tab="frames">Frames</button>
+                <button class="tab-btn" data-tab="layouts">Layouts</button>
+                <button class="tab-btn" data-tab="text">Text</button>
+            </div>
+
+            <div class="tabs-content">
+                <!-- Filters Tab -->
+                <div class="tab-pane active" id="pane-filters">
+                    <h3>Choose Filter</h3>
+                    <div class="filter-grid" id="filterGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Frames Tab -->
+                <div class="tab-pane" id="pane-frames">
+                    <h3>Choose Frame</h3>
+                    <div class="frame-grid" id="frameGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Layouts Tab -->
+                <div class="tab-pane" id="pane-layouts">
+                    <h3>Choose Layout</h3>
+                    <div class="layout-grid" id="layoutGrid">
+                        <div class="layout-card active" data-layout="vertical">
+                            <div class="layout-icon vertical-mockup"><span></span><span></span><span></span><span></span></div>
+                            <span>Vertical Strip</span>
+                        </div>
+                        <div class="layout-card" data-layout="grid">
+                            <div class="layout-icon grid-mockup"><div><span></span><span></span></div><div><span></span><span></span></div></div>
+                            <span>2x2 Grid</span>
+                        </div>
+                        <div class="layout-card" data-layout="polaroid">
+                            <div class="layout-icon polaroid-mockup"><span></span></div>
+                            <span>Polaroid Style</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Tab -->
+                <div class="tab-pane" id="pane-text">
+                    <h3>Custom Text & Date</h3>
+                    <div class="form-group">
+                        <label for="customText">Footer Text / Caption</label>
+                        <input type="text" id="customText" value="NOXBOOTH" maxlength="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="customDate">Date Display</label>
+                        <input type="text" id="customDate" value="15 • 09 • 2026" maxlength="25">
+                    </div>
+                    <div class="form-group">
+                        <label>Text Style</label>
+                        <select id="fontSelect">
+                            <option value="sans-serif">Modern Sans</option>
+                            <option value="serif">Classic Serif</option>
+                            <option value="monospace">Futuristic Mono</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Processing Modal -->
+    <div id="processingModal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="spinner-glow"></div>
+            <h3 id="processingText">Preparing Photostrip...</h3>
+            <div class="progress-bar-container">
+                <div id="processingProgress" class="progress-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/db.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/frames.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
