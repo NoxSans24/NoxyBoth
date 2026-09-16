@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor — NoxBooth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%233b82f6'/%3E%3Crect x='5' y='8' width='14' height='10' rx='2' fill='white'/%3E%3Ccircle cx='12' cy='13' r='3' fill='%233b82f6'/%3E%3Crect x='9' y='6' width='6' height='3' rx='1' fill='white'/%3E%3C/svg%3E">
+</head>
+<body class="editor-body">
+    <div class="bg-glow"></div>
+
+    <header class="app-header">
+        <a href="camera.html" class="icon-btn" aria-label="Back to Camera">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <defs>
+                    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <path fill="url(#iconGrad)" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </a>
+        <div class="brand-name">NoxBooth Editor</div>
+        <button id="finishEditBtn" class="btn btn-primary btn-sm">Create Photostrip</button>
+    </header>
+
+    <main class="editor-container">
+        <!-- Preview Column -->
+        <div class="editor-preview-section">
+            <div class="preview-header-bar">
+                <span class="preview-badge" id="previewBadge">Photostrip Preview</span>
+                <span class="preview-dim" id="previewDim">600 &times; 1800 px</span>
+            </div>
+            <div class="canvas-container-preview">
+                <canvas id="editorCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Controls Sidebar Column -->
+        <div class="editor-sidebar glass-panel">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="template">Template</button>
+                <button class="tab-btn" data-tab="frames">Frames</button>
+                <button class="tab-btn" data-tab="filters">Filters</button>
+                <button class="tab-btn" data-tab="text">Text</button>
+            </div>
+
+            <div class="tabs-content">
+                <!-- Template Tab -->
+                <div class="tab-pane active" id="pane-template">
+                    <div class="control-section">
+                        <div class="section-title">
+                            <h3>Jumlah Foto</h3>
+                            <span class="section-hint">Pilih 4, 6, 8, atau 10 foto</span>
+                        </div>
+                        <div class="count-selector">
+                            <button class="count-btn" data-count="4">4</button>
+                            <button class="count-btn" data-count="6">6</button>
+                            <button class="count-btn" data-count="8">8</button>
+                            <button class="count-btn" data-count="10">10</button>
+                        </div>
+                    </div>
+
+                    <div class="control-section">
+                        <div class="section-title">
+                            <h3>Template Susunan</h3>
+                            <span class="section-hint">Pilih gaya tata letak</span>
+                        </div>
+                        <div class="template-grid" id="templateGrid"><!-- Populated by JS --></div>
+                    </div>
+
+                    <div class="control-section">
+                        <div class="section-title">
+                            <h3>Slot Urutan Foto</h3>
+                            <span class="section-hint">Klik slot untuk mengganti foto</span>
+                        </div>
+                        <div class="slot-grid" id="slotGrid"><!-- Populated by JS --></div>
+                        
+                        <div id="galleryImportArea" class="gallery-import-area">
+                            <button id="importPhotosBtn" class="btn btn-secondary btn-sm w-full">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Tambah Foto dari Galeri
+                            </button>
+                            <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frames Tab -->
+                <div class="tab-pane" id="pane-frames">
+                    <div class="section-title">
+                        <h3>Pilih Frame Photobooth</h3>
+                        <span class="section-hint">Sesuaikan tema bingkai foto</span>
+                    </div>
+                    <div class="frame-grid" id="frameGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Filters Tab -->
+                <div class="tab-pane" id="pane-filters">
+                    <div class="section-title">
+                        <h3>Pilih Filter Warna</h3>
+                        <span class="section-hint">Tone warna visual foto</span>
+                    </div>
+                    <div class="filter-grid" id="filterGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Text Tab -->
+                <div class="tab-pane" id="pane-text">
+                    <div class="section-title">
+                        <h3>Kustomisasi Teks & Tanggal</h3>
+                        <span class="section-hint">Tulisan pada bagian bawah photostrip</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="customText">Footer Text / Caption</label>
+                        <input type="text" id="customText" value="NOXBOOTH" maxlength="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="customDate">Tampilan Tanggal</label>
+                        <input type="text" id="customDate" placeholder="DD • MM • YYYY" maxlength="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="fontSelect">Gaya Huruf (Font)</label>
+                        <select id="fontSelect">
+                            <option value="sans-serif">Modern Sans (Inter)</option>
+                            <option value="serif">Classic Serif (Elegance)</option>
+                            <option value="monospace">Futuristic Mono (Cyber)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Photo Picker Modal -->
+    <div id="photoPickerModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="photoPickerTitle">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3 id="photoPickerTitle">Pilih Foto</h3>
+                <button id="pickerCloseBtn" class="icon-btn" aria-label="Close">&times;</button>
+            </div>
+            <div id="pickerGrid" class="picker-grid"><!-- Populated by JS --></div>
+            <div class="modal-footer">
+                <button id="pickerCancelBtn" class="btn btn-secondary btn-sm">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Processing Modal -->
+    <div id="processingModal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="spinner-glow"></div>
+            <h3 id="processingText">Preparing Photostrip...</h3>
+            <div class="progress-bar-container">
+                <div id="processingProgress" class="progress-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/db.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/frames.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
